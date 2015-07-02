@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.yanjiasen4.sjtu.beans">
+	<class name="Book" table="book_list" dynamic-insert="true">
+		<id name="ID" column="ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="BookName" column="BookName"
+			not-null="true" length="255"></property>
+		<property name="Price" column="Price"
+			not-null="false" length="10"></property>
+		<property name="Type" column="Type"
+			not-null="true" length="255"></property>
+		<property name="Author" column="Author" 
+		    not-null="true" length="255"></property>
+		<property name="Pic" column="Pic"
+		    not-null="true" length="255"></property>
+	</class>
+</hibernate-mapping>

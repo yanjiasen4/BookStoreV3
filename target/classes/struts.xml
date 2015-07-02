@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+    "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+
+	<include file="struts-default.xml" />
+	<package name="bk" extends="struts-default">
+		<action name="register" class="regAction">
+			<result name="input">/Register.jsp</result>
+			<result name="success">/Success.html</result>
+			<result name="error">/Register.jsp?errNo=1</result>
+		</action>
+		
+		<action name="login" class="loginAction">
+			<result name="input">/Login.jsp</result>
+			<result name="success">/Index.html</result>
+			<result name="error">/Login.jsp?errNo=1</result>
+		</action>
+		
+		<action name="showbook" class="showbookAction">
+			<result name="input">/Index.html</result>
+			<result name="success">/Index.jsp</result>
+			<result name="error">/Error.html</result>	
+	    </action>
+	    <action name="showbookd" class="showbookAction" method="executed">
+			<result name="input">/ManageD.jsp</result>
+			<result name="success" type="redirectAction">showbookd.action</result>
+			<result name="error">/Error.html</result>	
+	    </action>
+	      <action name="showbookm" class="showbookAction" method="executem">
+			<result name="input">/Manage.jsp</result>
+			<result name="success">/ManageD.jsp</result>
+			<result name="error">/Error.html</result>	
+	    </action>
+	    
+	    <action name="showcart" class="showcartAction">
+	    	<result name="input">/Index.html</result>
+	    	<result name="success">/Cart.jsp?empty=0</result>
+	    	<result name="error">/Cart.jsp?empty=1</result>
+	    </action>
+	    
+	    <action name="showorder" class="showorderAction">
+	    	<result name="input">/Index.html</result>
+	    	<result name="success">/Order.jsp</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    
+	    <action name="add2car" class="addcarAction" method="execute">
+	    	<result name="input">/Index.html</result>
+	    	<result name="success" type="redirect">/Index.html</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    
+	    <action name="insertbook" class="bookAction" method="insertBook">
+	    	<result name="input">/ManageI.jsp</result>
+	    	<result name="success">/Success.html</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    <action name="deletetbook" class="bookAction" method="deleteBook">
+	    	<result name="input">/ManageD.jsp</result>
+	    	<result name="success">/Success.html</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    <action name="modifybook" class="bookAction" method="modifyBook">
+	    	<result name="input">/ManagerI.jsp</result>
+	    	<result name="success">/ManagerI.jsp</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    
+	    <action name="logoff" class="logoffAction">
+	    	<result name="input">/User.jsp</result>
+	    	<result name="success">/Login.jsp</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    
+	    <action name="buy" class="buyAction">
+	    	<result name="input">/</result>
+	    	<result name="success">/Success.html</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    
+	    <action name="clearcart" class="clearcartAction">
+	    	<result name="input">/</result>
+	    	<result name="success">/Success.html</result>
+	    	<result name="error">/Error.html</result>
+	    </action>    
+	    
+	    <action name="searchbook" class="searchbookAction">
+	    	<result name="input">/</result>
+	    	<result name="success">/Index.jsp</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	    
+	    <action name="changepsw" class="changepswAction">
+	    	<result name="input">/User.jsp</result>
+	    	<result name="success">/Success.html</result>
+	    	<result name="error">/Error.html</result>
+	    </action>
+	</package>
+	   
+	<package name="ajax" extends="json-default">
+	    <action name="showstaticb" class="showbookstaticAction" method="execute">
+	    	<result name="success" type="json">/</result>
+	    </action>
+	    <action name="showstaticu" class="showuserstaticAction" method="execute">
+	    	<result name="success" type="json">/</result>
+	    </action>
+	    <action name="showstatics" class="showsinglestaticAction" method="execute">
+	    	<result name="success" type="json">/</result>
+	    </action>
+	</package>
+
+</struts>

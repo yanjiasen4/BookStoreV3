@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+                            "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                            "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.yanjiasen4.sjtu.beans">
+	<class name="Order" table="orders" dynamic-insert="true">
+		<id name="orderid" column="orderid">
+			<generator class="native"></generator>
+		</id>
+		<property name="username" column="username"/>
+		<property name="bookname" column="bookname"/>
+		<property name="bookprice" column="bookprice"/>
+		<property name="booknum" column="booknum"/>
+		<property name="timestamp" column="date"/>
+	</class>
+
+</hibernate-mapping>

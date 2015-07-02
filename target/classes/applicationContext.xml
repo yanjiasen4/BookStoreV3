@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:jee="http://www.springframework.org/schema/jee"
+		xmlns:lang="http://www.springframework.org/schema/lang"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans  
+             http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+			 http://www.springframework.org/schema/tx 
+			 http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+			 http://www.springframework.org/schema/data/mongo
+        	 http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+       		 http://www.springframework.org/schema/data/repository
+       	  	 http://www.springframework.org/schema/data/repository/spring-repository-1.5.xsd">
+   	
+    <!-- MongoDB 配置 --> 
+    <mongo:mongo host="127.0.0.1" port="27017" />  
+ 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">  
+    	<constructor-arg ref="mongo"/>  
+    	<constructor-arg name="databaseName" value="users"/>
+	</bean>  
+   
+    <!-- Hibernate SessionFactory 配置 -->
+    <bean id="sessionFactory" 
+   		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">  
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"></property>  
+    </bean> 
+    
+    <!-- Dao层 配置 -->
+    <bean id="bookDaoImpl" class="com.yanjiasen4.sjtu.daoImpl.BookDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="carDaoImpl" class="com.yanjiasen4.sjtu.daoImpl.CarDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="orderDaoImpl" class="com.yanjiasen4.sjtu.daoImpl.OrderDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="userDaoImpl" class="com.yanjiasen4.sjtu.daoImpl.UserDaoImpl">
+   	    <property name="mongoTemplate" ref="mongoTemplate"></property>
+    </bean>
+
+    <!-- Service层 配置  -->
+    <bean name="bookManager" class="com.yanjiasen4.sjtu.serviceImpl.BookManagerImpl">
+	    <property name="BookDao" ref="bookDaoImpl"></property>
+	</bean>
+	<bean name="carManager" class="com.yanjiasen4.sjtu.serviceImpl.CarManagerImpl">
+		<property name="CarDao" ref="carDaoImpl"></property>
+	</bean>
+	<bean name="orderManager" class="com.yanjiasen4.sjtu.serviceImpl.OrderManagerImpl">
+		<property name="orderDao" ref="orderDaoImpl"></property>
+	</bean>
+	<bean name="userManager" class="com.yanjiasen4.sjtu.serviceImpl.UserManagerImpl">
+	    <property name="userDao" ref="userDaoImpl"></property>
+	</bean>
+
+	<!-- Action层 配置 -->
+	<bean id="addcarAction" class="com.yanjiasen4.sjtu.actions.Add2CarAction">
+		<property name="carManager" ref="carManager"></property>
+	</bean>
+	<bean id="bookAction" class="com.yanjiasen4.sjtu.actions.BookManagerAction">
+		<property name="bookManager" ref="bookManager"></property>
+	</bean>
+	<bean id="loginAction" class="com.yanjiasen4.sjtu.actions.LoginAction">
+		<property name="userManager" ref="userManager"></property>
+	</bean>
+	<bean id="logoffAction" class="com.yanjiasen4.sjtu.actions.LogoffAction">
+	</bean>
+	<bean id="regAction" class="com.yanjiasen4.sjtu.actions.RegisterAction">
+		<property name="userManager" ref="userManager"></property>
+	</bean>
+	<bean id="showbookAction" class="com.yanjiasen4.sjtu.actions.ShowBookAction">
+		<property name="bookManager" ref="bookManager"></property>
+	</bean>
+	<bean id="showcartAction" class="com.yanjiasen4.sjtu.actions.ShowCartAction">
+		<property name="carManager" ref="carManager"></property>
+	</bean>
+	<bean id="showorderAction" class="com.yanjiasen4.sjtu.actions.ShowOrderAction">
+		<property name="orderManager" ref="orderManager"></property>
+	</bean>
+	<bean id="showbookstaticAction" class="com.yanjiasen4.sjtu.actions.ShowBookStaticAction">
+		<property name="bookManager" ref="bookManager"></property>
+	</bean>
+	<bean id="showuserstaticAction" class="com.yanjiasen4.sjtu.actions.ShowUserStaticAction">
+		<property name="orderManager" ref="orderManager"></property>
+	</bean>
+	<bean id="showsinglestaticAction" class="com.yanjiasen4.sjtu.actions.ShowSingleStaticAction">
+		<property name="orderManager" ref="orderManager"></property>
+	</bean>
+	<bean id="buyAction" class="com.yanjiasen4.sjtu.actions.BuyAction">
+		<property name="carManager" ref="carManager"></property>
+		<property name="orderManager" ref="orderManager"></property>
+	</bean>
+	<bean id="clearcartAction" class="com.yanjiasen4.sjtu.actions.ClearCartAction">
+		<property name="carManager" ref="carManager"></property>	
+	</bean>
+	<bean id="searchbookAction" class="com.yanjiasen4.sjtu.actions.SearchBookAction">
+		<property name="bookManager" ref="bookManager"></property>
+	</bean>
+	<bean id="changepswAction" class="com.yanjiasen4.sjtu.actions.ChangePasswordAction">
+		<property name="userManager" ref="userManager"></property>
+	</bean>
+	
+</beans>
